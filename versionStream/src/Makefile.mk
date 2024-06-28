@@ -349,6 +349,8 @@ preprocess-manifests:
 
 apply-other-resources:
 	$(MAKE) apply-ingressclass
+	@echo "Temporarily dumping contents of generated YAML files..."
+	@cat $(OUTPUT_DIR)/namespaces/jx/jx-kh-check-health-checks-jx/*.yaml
 	@if [ -f .kuberhealthy-crds-installed ]; then \
 		echo "Skipping Kuberhealthy CRDs installation from config root."; \
 		find config-root/customresourcedefinitions -type f -not -path "config-root/customresourcedefinitions/kuberhealthy/*" -name "*.yaml" -exec kubectl apply -f {} \; ; \
