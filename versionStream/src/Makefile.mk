@@ -345,7 +345,7 @@ apply-ingressclass:
  
 .PHONY: preprocess-manifests
 preprocess-manifests:
-	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/restartPolicy/d' {} +
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/restartPolicy/d' OnFailure +
 
 apply-other-resources:
 	$(MAKE) apply-ingressclass
