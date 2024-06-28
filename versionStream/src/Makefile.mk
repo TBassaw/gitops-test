@@ -374,9 +374,9 @@ install-and-apply:
 	$(MAKE) kubectl-apply
  
 # Cleanup target to remove the installed CRDs flag file
-.PHONY: clean
-clean:
-	rm -f .kuberhealthy-crds-installed
+# .PHONY: clean
+# clean:
+# 	rm -f .kuberhealthy-crds-installed
 
 .PHONY: kapp-apply
 kapp-apply:
