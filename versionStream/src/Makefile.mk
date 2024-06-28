@@ -345,7 +345,7 @@ apply-ingressclass:
  
 .PHONY: preprocess-manifests
 preprocess-manifests:
-	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{:a;N;/podSpec:/!ba;s/restartPolicy: Never/restartPolicy: OnFailure/}' {} +
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{:a;N;/podSpec:/!ba;s/podSpec:/restartPolicy: OnFailure\n  &/}' {} +
 
 apply-other-resources:
 	$(MAKE) apply-ingressclass
