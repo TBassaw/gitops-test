@@ -316,16 +316,56 @@ gitops-postprocess:
 # lets apply any infrastructure specific labels or annotations to enable IAM roles on ServiceAccounts etc
 	jx gitops postprocess
 
-.PHONY: kubectl-apply
-kubectl-apply:
-	@echo "using kubectl to apply resources"
-
-# NOTE be very careful about these 2 labels as getting them wrong can remove stuff in you cluster!
-	if [ -d $(OUTPUT_DIR)/customresourcedefinitions ]; then \
-	  kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=customresourcedefinitions -R -f $(OUTPUT_DIR)/customresourcedefinitions; \
+.PHONY: install-kuberhealthy-crds apply-other-resources
+ 
+# Function to install Kuberhealthy CRDs directly
+install-kuberhealthy-crds:
+	@echo "Cloning Kuberhealthy Git repository..."
+	git clone https://github.com/kuberhealthy/kuberhealthy.git /tmp/kuberhealthy
+ 
+	@echo "Applying Kuberhealthy CRDs from Git repository..."
+	if kubectl apply -f /tmp/kuberhealthy/deploy/helm/kuberhealthy/crds; then \
+		echo "Kuberhealthy CRDs installed successfully."; \
+		rm -rf /tmp/kuberhealthy; \
+		touch .kuberhealthy-crds-installed; \
+	else \
+		echo "Failed to install Kuberhealthy CRDs."; \
+		rm -rf /tmp/kuberhealthy; \
+		exit 1; \
+	fi
+ 
+apply-ingressclass:
+	@echo "Checking if IngressClass 'nginx' exists..."
+	if kubectl get ingressclass nginx >/dev/null 2>&1; then \
+		echo "IngressClass 'nginx' already exists, skipping."; \
+	else \
+		echo "Applying IngressClass 'nginx'..."; \
+		echo "Failed to apply IngressClass 'nginx'"; \
+	fi
+ 
+apply-other-resources:
+	$(MAKE) apply-ingressclass
+	@if [ -f .kuberhealthy-crds-installed ]; then \
+		echo "Skipping Kuberhealthy CRDs installation from config root."; \
+		find config-root/customresourcedefinitions -type f -not -path "config-root/customresourcedefinitions/kuberhealthy/*" -name "*.yaml" -exec kubectl apply -f {} \; ; \
+	else \
+		echo "Applying all resources including Kuberhealthy CRDs from config root."; \
+		kubectl apply --server-side=true --force-conflicts --prune -l=gitops.jenkins-x.io/pipeline=customresourcedefinitions -R -f config-root/customresourcedefinitions; \
 	fi
 	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=cluster                   -R -f $(OUTPUT_DIR)/cluster
 	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=namespaces                -R -f $(OUTPUT_DIR)/namespaces
+ 
+kubectl-apply:
+	$(MAKE) install-kuberhealthy-crds
+	$(MAKE) apply-other-resources
+ 
+install-and-apply:
+	$(MAKE) kubectl-apply
+ 
+# Cleanup target to remove the installed CRDs flag file
+.PHONY: clean
+clean:
+	rm -f .kuberhealthy-crds-installed
 
 .PHONY: kapp-apply
 kapp-apply:
