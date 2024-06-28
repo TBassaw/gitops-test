@@ -343,18 +343,18 @@ apply-ingressclass:
 		echo "Failed to apply IngressClass 'nginx'"; \
 	fi
  
-#.PHONY: preprocess-manifests
-#preprocess-manifests:
-#	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{:a;N;/podSpec:/!ba;s/podSpec:/podSpec:\n    restartPolicy: OnFailure\n    /}' {} +
-#	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/containers:/,/terminationGracePeriodSeconds:/{/restartPolicy: Never/d}' {} +
-#	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: CronJob/,/containers:/ {s/containers:/restartPolicy: OnFailure\n          containers:/;}' {} +
+.PHONY: preprocess-manifests
+preprocess-manifests:
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{:a;N;/podSpec:/!ba;s/podSpec:/podSpec:\n    restartPolicy: OnFailure\n    /}' {} +
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/containers:/,/terminationGracePeriodSeconds:/{/restartPolicy: Never/d}' {} +
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: CronJob/,/containers:/ {s/containers:/restartPolicy: OnFailure\n          containers:/;}' {} +
 
 
 apply-other-resources:
 	$(MAKE) apply-ingressclass
 	@echo "Temporarily dumping contents of generated YAML files..."
-#	@cat $(OUTPUT_DIR)/namespaces/jx/jx-kh-check-health-checks-jx/*.yaml
-#	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "kind: CronJob" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
+	@cat $(OUTPUT_DIR)/namespaces/jx/jx-kh-check-health-checks-jx/*.yaml
+	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "kind: CronJob" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
 	@if [ -f .kuberhealthy-crds-installed ]; then \
 		echo "Skipping Kuberhealthy CRDs installation from config root."; \
 		find config-root/customresourcedefinitions -type f -not -path "config-root/customresourcedefinitions/kuberhealthy/*" -name "*.yaml" -exec kubectl apply -f {} \; ; \
@@ -366,7 +366,7 @@ apply-other-resources:
 	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=namespaces                -R -f $(OUTPUT_DIR)/namespaces
 
 .PHONY: kubectl-apply
-kubectl-apply: #preprocess-manifests
+kubectl-apply: preprocess-manifests
 	$(MAKE) install-kuberhealthy-crds
 	$(MAKE) apply-other-resources
  
