@@ -347,18 +347,7 @@ apply-ingressclass:
 preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{:a;N;/podSpec:/!ba;s/podSpec:/podSpec:\n    restartPolicy: OnFailure\n    /}' {} +
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/containers:/,/terminationGracePeriodSeconds:/{/restartPolicy: Never/d}' {} +
-	cat << 'EOF' > add_restart_policy.sed
-	/kind: CronJob/,/spec:/{
-		/template:/,/spec:/{
-			/spec:/a\
-				restartPolicy: OnFailure
-		}
-	}
-	EOF
-
-	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i -f add_restart_policy.sed {} +
-
-	rm add_restart_policy.sed
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: CronJob/,/spec:/{ /template:/,/spec:/{ /spec:/a\          restartPolicy: OnFailure } }' {} +
 
 apply-other-resources:
 	$(MAKE) apply-ingressclass
