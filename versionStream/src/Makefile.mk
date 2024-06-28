@@ -354,8 +354,7 @@ preprocess-manifests:
 	}
 	/containers:/,/terminationGracePeriodSeconds:/{
 		/restartPolicy: Never/d
-	}
-	' {} +
+	}' {} +
 
 apply-other-resources:
 	$(MAKE) apply-ingressclass
