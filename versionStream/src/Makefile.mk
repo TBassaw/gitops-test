@@ -347,14 +347,14 @@ apply-ingressclass:
 preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '
 	/kind: KuberhealthyCheck/{
-			:a
-			N
-			/podSpec:/!ba
-			s/podSpec:/podSpec:\n    restartPolicy: OnFailure\n    /
-		}
-		/containers:/,/terminationGracePeriodSeconds:/{
-			/restartPolicy: Never/d
-		}
+		:a
+		N
+		/podSpec:/!ba
+		s/podSpec:/podSpec:\n    restartPolicy: OnFailure\n    /
+	}
+	/containers:/,/terminationGracePeriodSeconds:/{
+		/restartPolicy: Never/d
+	}
 	' {} +
 
 apply-other-resources:
