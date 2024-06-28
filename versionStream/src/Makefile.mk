@@ -352,9 +352,9 @@ preprocess-manifests:
 			n
 			/jobTemplate:/!{
 				s/$/\n  jobTemplate:\n    spec:\n      template:\n        spec:\n          restartPolicy: OnFailure/
-    		}
+			}
 		}
-  		/template:/,/spec:/{
+		/template:/,/spec:/{
 			/spec:/a\
 					restartPolicy: OnFailure
 		}
