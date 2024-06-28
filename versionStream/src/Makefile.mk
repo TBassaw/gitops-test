@@ -343,9 +343,9 @@ apply-ingressclass:
 		echo "Failed to apply IngressClass 'nginx'"; \
 	fi
  
-# .PHONY: preprocess-manifests
-# preprocess-manifests:
-# 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{n;s/^/    restartPolicy: OnFailure\n/}' {} +
+.PHONY: preprocess-manifests
+preprocess-manifests:
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{n;s/^/  spec:\n    restartPolicy: OnFailure\n/}' {} +
 
 apply-other-resources:
 	$(MAKE) apply-ingressclass
@@ -362,7 +362,7 @@ apply-other-resources:
 	kubectl apply $(KUBECTL_APPLY_FLAGS) --prune -l=gitops.jenkins-x.io/pipeline=namespaces                -R -f $(OUTPUT_DIR)/namespaces
 
 .PHONY: kubectl-apply
-kubectl-apply: #preprocess-manifests
+kubectl-apply: preprocess-manifests
 	$(MAKE) install-kuberhealthy-crds
 	$(MAKE) apply-other-resources
  
