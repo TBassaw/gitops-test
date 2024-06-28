@@ -347,7 +347,7 @@ apply-ingressclass:
 preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{:a;N;/podSpec:/!ba;s/podSpec:/podSpec:\n    restartPolicy: OnFailure\n    /}' {} +
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/containers:/,/terminationGracePeriodSeconds:/{/restartPolicy: Never/d}' {} +
-	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: CronJob/,/containers:/ {s/containers:/  restartPolicy: OnFailure\n&/; s/^  restartPolicy: OnFailure/    restartPolicy: OnFailure/}' {} +
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: CronJob/,/containers:/ {s/containers:/restartPolicy: OnFailure\n          containers:/;}' {} +
 
 
 apply-other-resources:
