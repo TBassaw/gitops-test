@@ -17,7 +17,7 @@ releases:
   - ../../versionStream/charts/kuberhealthy/kuberhealthy/values.yaml.gotmpl
   - jx-values.yaml
 - chart: jxgh/kh-tls-check
-  version: 0.0.80
+  version: 0.0.10
   name: kh-tls-check
   values:
   - ../../versionStream/charts/jxgh/jx-kh-check/values.yaml.gotmpl
