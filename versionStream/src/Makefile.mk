@@ -349,6 +349,7 @@ preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/containers:/,/terminationGracePeriodSeconds:/{/restartPolicy: Never/d}' {} +
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: CronJob/,/containers:/ {s/containers:/restartPolicy: OnFailure\n          containers:/;}' {} +
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/name: certmanager-tls/,/env:/ { s/env:/env: []/; }' {} +
+	find $(OUTPUT_DIR) -type f -name "kuberhealthy-pdb-poddisruptionbudget.yaml" -exec sed -i 's/apiVersion: policy\/v1beta1/apiVersion: policy\/v1/' {} +
 
 
 apply-other-resources:
