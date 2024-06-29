@@ -8,7 +8,7 @@ repositories:
 - name: jxgh
   url: https://jenkins-x-charts.github.io/repo
 - name: kuberhealthy
-  url: https://kuberhealthy.github.io/helm-repos
+  url: https://kuberhealthy.github.io/kuberhealthy/helm-repos
 releases:
 - chart: kuberhealthy/kuberhealthy
   version: "64"
