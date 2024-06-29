@@ -218,6 +218,59 @@
     version: 0.0.78
 - namespace: kuberhealthy
   path: helmfiles/kuberhealthy/helmfile.yaml
+  releases:
+  - apiVersion: v2
+    appVersion: v2.4.1
+    description: An operator for synthetic test and monitoring. Works great with Prometheus.
+    firstDeployed: "2024-06-29T01:06:29Z"
+    home: https://kuberhealthy.github.io/kuberhealthy/
+    icon: https://raw.githubusercontent.com/kuberhealthy/kuberhealthy/master/images/logo-square.png
+    keywords:
+    - kuberhealthy
+    - kubernetes
+    - operator
+    - monitoring
+    - synthetic
+    - testing
+    - comcast
+    - health
+    - prometheus
+    lastDeployed: "2024-06-29T01:06:29Z"
+    maintainers:
+    - email: eric.greer@comcast.com
+      name: integrii
+    - email: joshulyne_park@comcast.com
+      name: joshulyne
+    - email: itsjonnyguy@gmail.com
+      name: jonnydawg
+    name: kuberhealthy
+    releaseName: kuberhealthy
+    repositoryName: kuberhealthy
+    repositoryUrl: https://kuberhealthy.github.io/kuberhealthy/helm-repos
+    resourcePath: config-root/namespaces/kuberhealthy/kuberhealthy
+    sources:
+    - https://github.com/kuberhealthy/kuberhealthy
+    - https://github.com/kuberhealthy/kuberhealthy/tree/master/deploy/helm/kuberhealthy
+    type: application
+    version: "64"
+  - apiVersion: v2
+    appVersion: 0.0.10
+    description: Jenkins X next gen cloud CI / CD platform for Kubernetes
+    firstDeployed: "2024-06-29T01:06:29Z"
+    home: https://jenkins-x.io/
+    icon: https://jenkins-x.github.io/jenkins-x-website/img/profile.png
+    lastDeployed: "2024-06-29T01:06:29Z"
+    maintainers:
+    - email: jenkins-x@googlegroups.com
+      name: Jenkins X Team
+    name: kh-tls-check
+    releaseName: kh-tls-check
+    repositoryName: jxgh
+    repositoryUrl: https://jenkins-x-charts.github.io/repo
+    resourcePath: config-root/namespaces/kuberhealthy/kh-tls-check
+    sources:
+    - https://github.com/jenkins-x-plugins/kh-tls-check
+    version: 0.0.10
 - namespace: nginx
   path: helmfiles/nginx/helmfile.yaml
   releases:

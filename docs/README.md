@@ -96,6 +96,23 @@
 	      <td><a href='https://github.com/jenkins-x-plugins/jx-kh-check'>source</a></td>
 	    </tr>
     <tr>
+		      <td colspan='5'><h3>kuberhealthy</h3></td>
+		    </tr>
+	    <tr>
+	      <td>kuberhealthy</td>
+	      <td title='An operator for synthetic test and monitoring. Works great with Prometheus.'><a href='https://kuberhealthy.github.io/kuberhealthy/'> <img src='https://raw.githubusercontent.com/kuberhealthy/kuberhealthy/master/images/logo-square.png' width='24px' height='24px'> kuberhealthy</a></td>
+	      <td>64</td>
+	      <td></td>
+	      <td><a href='https://github.com/kuberhealthy/kuberhealthy'>0</a> <a href='https://github.com/kuberhealthy/kuberhealthy/tree/master/deploy/helm/kuberhealthy'>1</a> </td>
+	    </tr>
+    <tr>
+	      <td>kh-tls-check</td>
+	      <td title='Jenkins X next gen cloud CI / CD platform for Kubernetes'><a href='https://jenkins-x.io/'> <img src='https://jenkins-x.github.io/jenkins-x-website/img/profile.png' width='24px' height='24px'> kh-tls-check</a></td>
+	      <td>0.0.10</td>
+	      <td></td>
+	      <td><a href='https://github.com/jenkins-x-plugins/kh-tls-check'>source</a></td>
+	    </tr>
+    <tr>
 		      <td colspan='5'><h3>nginx</h3></td>
 		    </tr>
 	    <tr>
