@@ -78,6 +78,7 @@ SOURCE_DIR ?= /workspace/source
 # HELMFILE_TEMPLATE_FLAGS ?= --debug
 HELMFILE_TEMPLATE_FLAGS ?=
 
+##
 # this option configure use of selector to regenerate only namespaces with changes
 # by default, regenerate all. To regenerate only namespace try
 # HELMFILE_USE_SELECTORS = true
