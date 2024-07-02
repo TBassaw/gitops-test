@@ -354,10 +354,10 @@ preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i 's|"http://127.0.0.1:8200"|"https://vault.jx-vault:8200"|' {} +
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/securityContext:/i\        volumeMounts:\n        - name: vault-ca-cert\n          mountPath: /etc/ssl/certs\n          readOnly: true' {} +
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/securityContext:/i\      volumes:\n      - name: vault-ca-cert\n        secret:\n          secretName: vault-ca-cert' {} \;
-	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "VAULT_CACERT"\n          value: "/etc/ssl/certs/ca.crt"' {} +
+	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "NODE_EXTRA_CA_CERTS"\n          value: "/etc/ssl/certs/ca.crt"' {} +
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "VAULT_CLIENT_CERT"\n          value: "/etc/ssl/certs/tls.crt"' {} +
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "VAULT_CLIENT_KEY"\n          value: "/etc/ssl/certs/tls.key"' {} +
-	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "NODE_TLS_REJECT_UNAUTHORIZED"\n          value: "0"' {} +
+#	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "NODE_TLS_REJECT_UNAUTHORIZED"\n          value: "0"' {} +
 ####
 	
 
