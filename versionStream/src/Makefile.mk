@@ -351,7 +351,7 @@ preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: CronJob/,/containers:/ {s/containers:/restartPolicy: OnFailure\n          containers:/;}' {} +
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/name: certmanager-tls/,/env:/ { s/env:/env: []/; }' {} +
 	find $(OUTPUT_DIR) -type f -name "kuberhealthy-pdb-poddisruptionbudget.yaml" -exec sed -i 's/apiVersion: policy\/v1beta1/apiVersion: policy\/v1/' {} +
-#	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i 's|"http://127.0.0.1:8200"|"https://vault.jx-vault:8200"|' {} +
+	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i 's|"http://127.0.0.1:8200"|"https://vault.jx-vault:8200"|' {} +
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/securityContext:/i\        volumeMounts:\n        - name: vault-ca-cert\n          mountPath: /etc/ssl/certs\n          readOnly: true' {} +
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/securityContext:/i\      volumes:\n      - name: vault-ca-cert\n        secret:\n          secretName: vault-ca-cert' {} \;
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "VAULT_CACERT"\n          value: "/etc/ssl/certs/ca.crt"' {} +
