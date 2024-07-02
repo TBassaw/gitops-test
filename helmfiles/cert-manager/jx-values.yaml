@@ -53,19 +53,19 @@ jxRequirements:
   secretStorage: secretsManager
   storage:
   - name: logs
-    url: s3://logs-todo-infra-20240701222119288800000008
+    url: s3://logs-todo-infra-20240702010041850600000005
   - name: reports
-    url: s3://reports-todo-infra-20240701222119261800000005
+    url: s3://reports-todo-infra-20240702010041830700000004
   - name: repository
-    url: s3://repository-todo-infra-20240701222119260800000003
+    url: s3://repository-todo-infra-20240702010041871100000007
   terraform: true
   vault:
     aws:
       dynamoDBRegion: us-east-2
-      dynamoDBTable: vault-unseal-todo-infra-nWKLdjbD
-      kmsKeyId: 5cff9930-386b-4dec-b649-bcafd11ab4ce
+      dynamoDBTable: vault-unseal-todo-infra-FkM8aBmG
+      kmsKeyId: 406ea99c-c1bc-4a91-b38a-2ff03a142199
       kmsRegion: us-east-2
-      s3Bucket: vault-unseal-todo-infra-20240701222119261300000004
+      s3Bucket: vault-unseal-todo-infra-20240702010041851100000006
       s3Region: us-east-2
   webhook: lighthouse
 jxRequirementsIngressExternalDNS:
