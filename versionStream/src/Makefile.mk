@@ -355,7 +355,7 @@ preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/securityContext:/i\        volumeMounts:\n        - name: vault-ca-cert\n          mountPath: /etc/ssl/certs\n          readOnly: true' {} +
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/securityContext:/i\      volumes:\n      - name: vault-ca-cert\n        secret:\n          secretName: vault-ca-cert' {} \;
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "VAULT_CACERT"\n          value: "/etc/ssl/certs/ca.crt"' {} +
-
+##
 	
 
 apply-other-resources:
