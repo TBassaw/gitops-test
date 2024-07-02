@@ -335,15 +335,27 @@ install-kuberhealthy-crds:
 		exit 1; \
 	fi
  
-apply-ingressclass:
-	@echo "Checking if IngressClass 'nginx' exists..."
-	if kubectl get ingressclass nginx >/dev/null 2>&1; then \
-		echo "IngressClass 'nginx' already exists, skipping."; \
+# apply-ingressclass:
+# 	@echo "Checking if IngressClass 'nginx' exists..."
+# 	if kubectl get ingressclass nginx >/dev/null 2>&1; then \
+# 		echo "IngressClass 'nginx' already exists, skipping."; \
+# 	else \
+# 		echo "Applying IngressClass 'nginx'..."; \
+# 		echo "Failed to apply IngressClass 'nginx'"; \
+# 	fi
+
+.PHONY: install-cert-manager
+install-cert-manager:
+	@echo "Checking if cert-manager is installed..."
+	@if ! kubectl get deployment cert-manager -n cert-manager >/dev/null 2>&1; then \
+		echo "cert-manager is not installed. Installing cert-manager..."; \
+		kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.14.5/cert-manager.yaml ; \
+		echo "cert-manager installation initiated."; \
 	else \
-		echo "Applying IngressClass 'nginx'..."; \
-		echo "Failed to apply IngressClass 'nginx'"; \
+		echo "cert-manager is already installed."; \
 	fi
- 
+###
+
 .PHONY: preprocess-manifests
 preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{:a;N;/podSpec:/!ba;s/podSpec:/podSpec:\n    restartPolicy: OnFailure\n    /}' {} +
@@ -364,10 +376,10 @@ preprocess-manifests:
 apply-other-resources:
 	$(MAKE) apply-ingressclass
 	@echo "Temporarily dumping contents of generated YAML files..."
-	@cat $(OUTPUT_DIR)/namespaces/jx/jx-kh-check-health-checks-jx/*.yaml
-	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "kind: CronJob" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
-	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "certmanager-tls" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
-	@find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sh -c 'grep -q "kubernetes-external-secrets" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
+#	@cat $(OUTPUT_DIR)/namespaces/jx/jx-kh-check-health-checks-jx/*.yaml
+#	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "kind: CronJob" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
+#	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "certmanager-tls" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
+#	@find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sh -c 'grep -q "kubernetes-external-secrets" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
 	@if [ -f .kuberhealthy-crds-installed ]; then \
 		echo "Skipping Kuberhealthy CRDs installation from config root."; \
 		find config-root/customresourcedefinitions -type f -not -path "config-root/customresourcedefinitions/kuberhealthy/*" -name "*.yaml" -exec kubectl apply -f {} \; ; \
