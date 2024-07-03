@@ -371,6 +371,7 @@ preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "VAULT_CLIENT_KEY"\n          value: "/etc/ssl/certs/tls.key"' {} +
 #	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i '/- name: "WATCH_TIMEOUT"/i\        - name: "NODE_TLS_REJECT_UNAUTHORIZED"\n          value: "0"' {} +
 ####
+#####Chore
 	
 
 apply-other-resources:
