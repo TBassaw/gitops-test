@@ -317,7 +317,7 @@ gitops-postprocess:
 # lets apply any infrastructure specific labels or annotations to enable IAM roles on ServiceAccounts etc
 	jx gitops postprocess
 
-.PHONY: install-kuberhealthy-crds apply-other-resources
+.PHONY: install-kuberhealthy-crds apply-other-resources install-cert-manager
  
 # Function to install Kuberhealthy CRDs directly
 install-kuberhealthy-crds:
@@ -344,7 +344,7 @@ install-kuberhealthy-crds:
 # 		echo "Failed to apply IngressClass 'nginx'"; \
 # 	fi
 
-.PHONY: install-cert-manager
+# .PHONY: install-cert-manager
 install-cert-manager:
 	@echo "Checking if cert-manager is installed..."
 	@if ! kubectl get deployment cert-manager -n cert-manager >/dev/null 2>&1; then \
@@ -394,12 +394,12 @@ apply-other-resources:
 kubectl-apply: preprocess-manifests
 	$(MAKE) install-kuberhealthy-crds
 	$(MAKE) apply-other-resources
+	$(MAKE) install-cert-manager
 	
 
  
 install-and-apply:
 	$(MAKE) kubectl-apply
-	$(MAKE) install-cert-manager
  
 # Cleanup target to remove the installed CRDs flag file
 .PHONY: clean
