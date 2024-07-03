@@ -394,6 +394,8 @@ apply-other-resources:
 kubectl-apply: preprocess-manifests
 	$(MAKE) install-kuberhealthy-crds
 	$(MAKE) apply-other-resources
+	$(MAKE) install-cert-manager
+
  
 install-and-apply:
 	$(MAKE) kubectl-apply
