@@ -394,11 +394,12 @@ apply-other-resources:
 kubectl-apply: preprocess-manifests
 	$(MAKE) install-kuberhealthy-crds
 	$(MAKE) apply-other-resources
-	$(MAKE) install-cert-manager
+	
 
  
 install-and-apply:
 	$(MAKE) kubectl-apply
+	$(MAKE) install-cert-manager
  
 # Cleanup target to remove the installed CRDs flag file
 .PHONY: clean
