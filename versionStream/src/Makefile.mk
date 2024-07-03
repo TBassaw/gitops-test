@@ -392,9 +392,9 @@ apply-other-resources:
 
 .PHONY: kubectl-apply
 kubectl-apply: preprocess-manifests
+	$(MAKE) install-cert-manager
 	$(MAKE) install-kuberhealthy-crds
 	$(MAKE) apply-other-resources
-	$(MAKE) install-cert-manager
 	
 
  
