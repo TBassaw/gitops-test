@@ -23,7 +23,7 @@ spec:
             fieldPath: spec.nodeName
       - name: HOSTNAME
         value: "kubernetes.default"
-      image: kuberhealthy/dns-resolution-check:v1.4.3
+      image: "docker.io/kuberhealthy/dns-resolution-check:v1.5.0"
       imagePullPolicy: IfNotPresent
       name: main
       resources:
@@ -31,5 +31,7 @@ spec:
           cpu: 10m
           memory: 50Mi
       securityContext:
+        runAsNonRoot: true
         allowPrivilegeEscalation: false
         readOnlyRootFilesystem: true
+    serviceAccountName: dns-internal-sa

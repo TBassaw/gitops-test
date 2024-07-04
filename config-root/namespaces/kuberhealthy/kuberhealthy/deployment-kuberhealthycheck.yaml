@@ -17,7 +17,7 @@ spec:
       fsGroup: 999
     containers:
     - name: deployment
-      image: kuberhealthy/deployment-check:v1.8.1
+      image: "docker.io/kuberhealthy/deployment-check:v1.9.0"
       imagePullPolicy: IfNotPresent
       env:
       - name: CHECK_DEPLOYMENT_REPLICAS
@@ -33,8 +33,9 @@ spec:
         limits:
           cpu: 40m
       securityContext:
+        runAsNonRoot: true
         allowPrivilegeEscalation: false
         readOnlyRootFilesystem: true
-      restartPolicy: Never
+    restartPolicy: Never
     serviceAccountName: deployment-sa
     terminationGracePeriodSeconds: 60
