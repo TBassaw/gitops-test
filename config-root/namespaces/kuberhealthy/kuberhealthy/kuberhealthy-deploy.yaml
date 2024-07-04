@@ -46,7 +46,7 @@ spec:
                   - kuberhealthy
               topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: kuberhealthy/kuberhealthy:v2.4.1
+      - image: "docker.io/kuberhealthy/kuberhealthy:v2.7.1"
         command: [/app/kuberhealthy]
         ports:
         - containerPort: 8080
@@ -55,6 +55,7 @@ spec:
           runAsNonRoot: true
           runAsUser: 999
           allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
