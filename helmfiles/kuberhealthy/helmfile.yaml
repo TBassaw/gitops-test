@@ -5,20 +5,20 @@ environments:
     - jx-values.yaml
 namespace: kuberhealthy
 repositories:
-- name: jxgh
-  url: https://jenkins-x-charts.github.io/repo
 - name: kuberhealthy
   url: https://kuberhealthy.github.io/kuberhealthy/helm-repos
+- name: jxgh
+  url: https://jenkins-x-charts.github.io/repo
 releases:
 - chart: kuberhealthy/kuberhealthy
-  version: "64"
+  version: "90"
   name: kuberhealthy
   values:
-  - ../../versionStream/charts/kuberhealthy/kuberhealthy/values.yaml.gotmpl
+ # - values.yaml.gotmpl
   - jx-values.yaml
-- chart: jxgh/kh-tls-check
-  version: 0.0.10
-  name: kh-tls-check
+- chart: jxgh/jx-kh-check
+  version: 0.0.80
+  name: jx-kh-check
   values:
   - ../../versionStream/charts/jxgh/jx-kh-check/values.yaml.gotmpl
   - jx-values.yaml
