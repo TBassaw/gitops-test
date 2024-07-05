@@ -12,6 +12,7 @@ spec:
   runInterval: 5m
   timeout: 15m
   podSpec:
+    restartPolicy: OnFailure
     securityContext:
       runAsUser: 999
       fsGroup: 999
