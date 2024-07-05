@@ -101,7 +101,7 @@
 	    <tr>
 	      <td>kuberhealthy</td>
 	      <td title='An operator for synthetic test and monitoring. Works great with Prometheus.'><a href='https://kuberhealthy.github.io/kuberhealthy/'> <img src='https://raw.githubusercontent.com/kuberhealthy/kuberhealthy/master/images/logo-square.png' width='24px' height='24px'> kuberhealthy</a></td>
-	      <td>84</td>
+	      <td>64</td>
 	      <td></td>
 	      <td><a href='https://github.com/kuberhealthy/kuberhealthy'>0</a> <a href='https://github.com/kuberhealthy/kuberhealthy/tree/master/deploy/helm/kuberhealthy'>1</a> </td>
 	    </tr>
