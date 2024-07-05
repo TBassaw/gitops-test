@@ -14,7 +14,7 @@ spec:
   podSpec:
     containers:
     - name: deployment
-      image: "docker.io/kuberhealthy/network-connection-check:v0.2.0"
+      image: kuberhealthy/network-connection-check:v0.2.0
       imagePullPolicy: IfNotPresent
       env:
       - name: CONNECTION_TARGET

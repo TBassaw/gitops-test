@@ -46,7 +46,7 @@ spec:
                   - kuberhealthy
               topologyKey: "kubernetes.io/hostname"
       containers:
-      - image: "docker.io/kuberhealthy/kuberhealthy:v2.7.1"
+      - image: kuberhealthy/kuberhealthy:v2.7.1
         command: [/app/kuberhealthy]
         ports:
         - containerPort: 8080

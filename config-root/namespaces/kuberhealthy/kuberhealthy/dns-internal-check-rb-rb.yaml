@@ -1,0 +1,17 @@
+# Source: kuberhealthy/templates/khcheck-dns-internal.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dns-internal-check-rb
+  namespace: kuberhealthy
+  annotations:
+    meta.helm.sh/release-name: 'kuberhealthy'
+  labels:
+    gitops.jenkins-x.io/pipeline: 'namespaces'
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: dns-internal-service-role
+subjects:
+- kind: ServiceAccount
+  name: dns-internal-sa

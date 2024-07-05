@@ -23,7 +23,7 @@ spec:
             fieldPath: spec.nodeName
       - name: HOSTNAME
         value: "kubernetes.default"
-      image: "docker.io/kuberhealthy/dns-resolution-check:v1.5.0"
+      image: kuberhealthy/dns-resolution-check:v1.5.0
       imagePullPolicy: IfNotPresent
       name: main
       resources:
