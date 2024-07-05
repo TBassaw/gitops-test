@@ -379,7 +379,7 @@ apply-other-resources:
 	@echo "Temporarily dumping contents of generated YAML files..."
 #	@cat $(OUTPUT_DIR)/namespaces/jx/jx-kh-check-health-checks-jx/*.yaml
 #	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "kind: CronJob" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
-#	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "certmanager-tls" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
+	@find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sh -c 'grep -q "jx-secrets" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
 #	@find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sh -c 'grep -q "kubernetes-external-secrets" $$1 && echo "==> $$1 <==" && cat $$1' _ {} \;
 	@if [ -f .kuberhealthy-crds-installed ]; then \
 		echo "Skipping Kuberhealthy CRDs installation from config root."; \
