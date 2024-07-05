@@ -361,7 +361,7 @@ preprocess-manifests:
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: KuberhealthyCheck/{:a;N;/podSpec:/!ba;s/podSpec:/podSpec:\n    restartPolicy: OnFailure\n    /}' {} +
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/containers:/,/terminationGracePeriodSeconds:/{/restartPolicy: Never/d}' {} +
 	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/kind: CronJob/,/containers:/ {s/containers:/restartPolicy: OnFailure\n          containers:/;}' {} +
-#	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/name: certmanager-tls/,/env:/ { s/env:/env: []/; }' {} +
+	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/name: certmanager-tls/,/env:/ { s/env:/env: []/; }' {} +
 #	find $(OUTPUT_DIR) -type f -name "*.yaml" -exec sed -i '/name: jx-secrets/,/env:/ { s/env:/env: []/; }' {} +
 	find $(OUTPUT_DIR) -type f -name "kuberhealthy-pdb-poddisruptionbudget.yaml" -exec sed -i 's/apiVersion: policy\/v1beta1/apiVersion: policy\/v1/' {} +
 	find $(OUTPUT_DIR) -type f -name "kubernetes-external-secrets-deploy.yaml" -exec sed -i 's|"http://127.0.0.1:8200"|"https://vault.jx-vault:8200"|' {} +
