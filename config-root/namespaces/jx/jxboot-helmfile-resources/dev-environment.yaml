@@ -33,9 +33,9 @@ spec:
     pipelineUserEmail: "jenkins-x@googlegroups.com"
     prowConfig: Scheduler
     storageLocations:
-    - bucketUrl: "s3://logs-todo-infra-20240705092906271400000002"
+    - bucketUrl: "s3://logs-todo-infra-20240708091711933400000004"
       classifier: "logs"
-    - bucketUrl: "s3://reports-todo-infra-20240705092906283500000006"
+    - bucketUrl: "s3://reports-todo-infra-20240708091711902400000002"
       classifier: "reports"
-    - bucketUrl: "s3://repository-todo-infra-20240705092906286900000007"
+    - bucketUrl: "s3://repository-todo-infra-20240708091711968800000006"
       classifier: "repository"
