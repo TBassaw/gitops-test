@@ -1,0 +1,46 @@
+app:
+  name: todo-app
+  replicaCount: 2
+  image: "denexonnuamah300/todo-app:v5.0"
+
+service:
+  ports: 8000
+  namespace: todo-app-ns
+  type: ClusterIP
+  name: todo-app-service
+
+ingress:
+  host: api8.devops.auroraverusschool.org
+
+clusterissuer:
+  name: letsencrypt-prod
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: thebassaw@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+      http01:
+        ingress:
+          class: nginx
+
+organization: teratek
+
+postgresql:
+  name: postgres
+  namespace: todo-app-ns
+  commonName: postgres.devops.auroraverusschool.org
+  secretName: postgres-tls-secret
+  username: user
+  password: password
+
+persistentVolume:
+  name: postgres-storage
+  volumeID: vol-06cee925cef2e3d00
+
+envValues:
+  dbName: todo-db
+  dbHost: postgres
+
+postgresSecret:
+  name: postgres-secret

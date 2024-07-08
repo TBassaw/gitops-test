@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+ name: api-ingress
+ annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.host }}
+    external-dns.alpha.kubernetes.io/ttl: "60"
+ namespace: {{ .Values.service.namespace }}
+ 
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: api.devops.auroraverusschool.org
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths: 
+      - path: /
+        pathType: Prefix
+        backend:
+          service: 
+            name: {{ .Values.service.name }}
+            port: 
+              number: 80
