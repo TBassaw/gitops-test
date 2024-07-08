@@ -15,6 +15,7 @@ spec:
     restartPolicy: OnFailure
     restartPolicy: OnFailure
     restartPolicy: OnFailure
+    restartPolicy: OnFailure
     securityContext:
       runAsUser: 999
       fsGroup: 999
